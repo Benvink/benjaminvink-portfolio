@@ -75,13 +75,29 @@ export default function ContactSection() {
     if (!validateForm()) return
     
     setIsSubmitting(true)
-    
-    // Simulate API call
-    setTimeout(() => {
+
+    try {
+      const form = e.target as HTMLFormElement
+      const formData = new FormData(form)
+      
+      const response = await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(formData as any).toString()
+      })
+
+      if (response.ok) {
+        setIsSubmitted(true)
+        setFormData({ name: '', email: '', company: '', message: '' })
+      } else {
+        throw new Error('Form submission failed')
+      }
+    } catch (error) {
+      console.error('Form submission error:', error)
+      alert('There was an error sending your message. Please try again.')
+    } finally {
       setIsSubmitting(false)
-      setIsSubmitted(true)
-      setFormData({ name: '', email: '', company: '', message: '' })
-    }, 2000)
+    }
   }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -214,8 +230,18 @@ export default function ContactSection() {
 
             {/* Contact Form */}
             <div className="bg-white/5 backdrop-blur-lg rounded-3xl p-8 border border-white/10">
-              <form onSubmit={handleSubmit} className="space-y-6" netlify>
-              <input type="hidden" name="form-name" value="contact" />
+              <form 
+                name="contact" 
+                method="POST" 
+                data-netlify="true" 
+                data-netlify-honeypot="bot-field"
+                onSubmit={handleSubmit} 
+                className="space-y-6"
+              >
+                {/* Hidden fields for Netlify */}
+                <input type="hidden" name="form-name" value="contact" />
+                <input type="hidden" name="bot-field" />
+
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-white font-semibold mb-2">Name *</label>
@@ -226,6 +252,7 @@ export default function ContactSection() {
                       onChange={handleInputChange}
                       className={`w-full bg-white/10 border ${errors.name ? 'border-red-500' : 'border-white/20'} rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-green-400 focus:outline-none transition-colors duration-200`}
                       placeholder="Your name"
+                      required
                     />
                     {errors.name && <p className="text-red-400 text-sm mt-1">{errors.name}</p>}
                   </div>
@@ -239,6 +266,7 @@ export default function ContactSection() {
                       onChange={handleInputChange}
                       className={`w-full bg-white/10 border ${errors.email ? 'border-red-500' : 'border-white/20'} rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-green-400 focus:outline-none transition-colors duration-200`}
                       placeholder="your@email.com"
+                      required
                     />
                     {errors.email && <p className="text-red-400 text-sm mt-1">{errors.email}</p>}
                   </div>
@@ -265,6 +293,7 @@ export default function ContactSection() {
                     rows={5}
                     className={`w-full bg-white/10 border ${errors.message ? 'border-red-500' : 'border-white/20'} rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:border-green-400 focus:outline-none transition-colors duration-200 resize-none`}
                     placeholder="Tell me about your sustainability goals, green tech project, or how we can create positive impact together! 🌿"
+                    required
                   />
                   {errors.message && <p className="text-red-400 text-sm mt-1">{errors.message}</p>}
                 </div>
