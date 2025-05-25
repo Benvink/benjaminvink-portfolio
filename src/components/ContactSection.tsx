@@ -199,7 +199,7 @@ export default function ContactSection() {
                     <div className="text-white font-semibold flex items-center gap-2">
                       Email <span className="text-sm opacity-60">📧</span>
                     </div>
-                    <div className="text-gray-400">hello@benjaminvink.com</div>
+                    <div className="text-gray-400">benlvink@gmail.com</div>
                   </div>
                 </div>
 
