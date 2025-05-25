@@ -144,13 +144,13 @@ export default function ContactSection() {
         <div className={`transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Let's Work
+              Let&apos;s Work
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-300">
                 Together
               </span>
             </h2>
             <p className="text-xl text-gray-400 max-w-3xl mx-auto">
-              Ready to drive growth for your product? Let's discuss how my marketing expertise can accelerate your business.
+              Ready to drive growth for your product? Let&apos;s discuss how my marketing expertise can accelerate your business.
             </p>
           </div>
 
