@@ -214,7 +214,8 @@ export default function ContactSection() {
 
             {/* Contact Form */}
             <div className="bg-white/5 backdrop-blur-lg rounded-3xl p-8 border border-white/10">
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-6" netlify>
+              <input type="hidden" name="form-name" value="contact" />
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-white font-semibold mb-2">Name *</label>
