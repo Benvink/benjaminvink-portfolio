@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import { GoogleAnalytics } from '@next/third-parties/google'
 import './globals.css'
 
 const inter = Inter({ subsets: ['latin'] })
@@ -20,7 +21,10 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Benjamin Vink - Product Marketing Manager',
     description: 'Strategic Product Marketing Manager driving sustainable growth with 15+ years of proven results',
-  }
+  },
+  icons: {
+    icon: '/favicon.svg',
+  },
 }
 
 export default function RootLayout({
@@ -30,7 +34,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        {children}
+        <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID!} />
+      </body>
     </html>
   )
 }
