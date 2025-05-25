@@ -47,7 +47,7 @@ const caseStudies: CaseStudy[] = [
     title: 'EdTech App Launch & Growth',
     company: 'Blackbullion',
     industry: 'EdTech • Financial Education',
-    challenge: 'Launch a new budgeting app in the competitive EdTech space while transitioning from B2B to D2C model.',
+    challenge: 'Launched a new budgeting app in the competitive EdTech space while transitioning from B2B to D2C model.',
     solution: [
       'Created comprehensive go-to-market strategy for budgeting app',
       'Collaborated with cross-functional teams (engineers, designers)',
