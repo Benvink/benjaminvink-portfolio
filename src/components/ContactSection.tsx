@@ -77,13 +77,18 @@ export default function ContactSection() {
     setIsSubmitting(true)
 
     try {
-      const form = e.target as HTMLFormElement
-      const formDataToSend = new FormData(form)
-      
-      const response = await fetch('/', {
+      // Use Netlify's form endpoint directly
+      const response = await fetch('/api/contact', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formDataToSend as unknown as Record<string, string>).toString()
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          company: formData.company,
+          message: formData.message
+        })
       })
 
       if (response.ok) {
@@ -231,17 +236,9 @@ export default function ContactSection() {
             {/* Contact Form */}
             <div className="bg-white/5 backdrop-blur-lg rounded-3xl p-8 border border-white/10">
               <form 
-                name="contact" 
-                method="POST" 
-                data-netlify="true" 
-                data-netlify-honeypot="bot-field"
                 onSubmit={handleSubmit} 
                 className="space-y-6"
               >
-                {/* Hidden fields for Netlify */}
-                <input type="hidden" name="form-name" value="contact" />
-                <input type="hidden" name="bot-field" />
-
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-white font-semibold mb-2">Name *</label>
