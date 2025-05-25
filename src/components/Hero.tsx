@@ -81,7 +81,7 @@ export default function Hero() {
               onClick={() => scrollToSection('contact')}
               className="px-8 py-4 border-2 border-green-300 text-green-100 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-green-400 hover:text-green-900 hover:scale-105 hover:border-green-400"
             >
-              🌿 Let's Collaborate
+              🌿 Let&apos;s Collaborate
             </button>
           </div>
         </div>
