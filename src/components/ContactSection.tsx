@@ -110,7 +110,7 @@ export default function ContactSection() {
               </svg>
             </div>
             <h3 className="text-3xl font-bold text-white mb-4">Message Sent!</h3>
-            <p className="text-gray-300 mb-8">Thanks for reaching out. I'll get back to you within 24 hours.</p>
+            <p className="text-gray-300 mb-8">Thanks for reaching out. I&apos;ll get back to you within 24 hours.</p>
             <button
               onClick={() => setIsSubmitted(false)}
               className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-3 rounded-full font-semibold hover:scale-105 transition-transform duration-200"
@@ -162,8 +162,8 @@ export default function ContactSection() {
               <div>
                 <h3 className="text-2xl font-bold text-white mb-6">Get In Touch</h3>
                 <p className="text-gray-300 text-lg leading-relaxed mb-8">
-                  I'm passionate about working with companies that share my values of sustainability and positive impact. 
-                  Whether you're in green tech, sustainable business, or looking to make your marketing more environmentally conscious, let's chat! 🌱
+                  I&apos;m passionate about working with companies that share my values of sustainability and positive impact. 
+                  Whether you&apos;re in green tech, sustainable business, or looking to make your marketing more environmentally conscious, let&apos;s chat! 🌱
                 </p>
               </div>
 
