@@ -78,12 +78,12 @@ export default function ContactSection() {
 
     try {
       const form = e.target as HTMLFormElement
-      const formData = new FormData(form)
+      const formDataToSend = new FormData(form)
       
       const response = await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formData as any).toString()
+        body: new URLSearchParams(formDataToSend as unknown as Record<string, string>).toString()
       })
 
       if (response.ok) {
