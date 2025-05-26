@@ -32,20 +32,9 @@ export default function Hero() {
               animationDuration: `${4 + Math.random() * 2}s`
             }}
           >
-            {/* Leaf shapes */}
-            {i % 4 === 0 && <div className="text-green-300 opacity-60 text-lg">🍃</div>}
-            {i % 4 === 1 && <div className="w-3 h-3 bg-green-300 opacity-50 rounded-full transform rotate-45"></div>}
-            {i % 4 === 2 && <div className="text-emerald-300 opacity-40 text-sm">🌿</div>}
-            {i % 4 === 3 && <div className="w-2 h-4 bg-gradient-to-t from-green-400 to-emerald-300 opacity-60 rounded-full"></div>}
+            <div className="w-2 h-2 bg-green-300 rounded-full opacity-70 transform rotate-45"></div>
           </div>
         ))}
-        
-        {/* Mountain silhouettes */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 opacity-20">
-          <svg viewBox="0 0 1200 120" className="w-full h-full">
-            <path d="M0,120 L0,80 L200,20 L400,60 L600,10 L800,50 L1000,30 L1200,70 L1200,120 Z" fill="currentColor" className="text-green-800"/>
-          </svg>
-        </div>
         
         {/* Organic shapes */}
         <div className="absolute top-20 right-20 w-32 h-32 bg-gradient-to-r from-green-400/20 to-emerald-500/20 rounded-full blur-xl animate-pulse"></div>
@@ -66,7 +55,7 @@ export default function Hero() {
           </h1>
           
           <p className="text-xl md:text-2xl text-green-100 mb-8 max-w-2xl mx-auto leading-relaxed">
-            Passionate about sustainable growth • Driving marketing strategies that create positive impact for businesses and the planet 🌱
+            Passionate about sustainable growth • Driving marketing strategies that create positive impact for businesses and the planet
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -74,15 +63,22 @@ export default function Hero() {
               onClick={() => scrollToSection('results')}
               className="group relative px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-full font-semibold text-lg transition-all duration-300 hover:from-green-400 hover:to-emerald-500 hover:scale-105 hover:shadow-2xl shadow-green-500/25"
             >
-              🚀 Explore My Impact
+              Explore My Impact
               <span className="absolute inset-0 rounded-full bg-gradient-to-r from-green-300 to-emerald-400 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></span>
             </button>
+            
+            <Link 
+              href="/blog"
+              className="px-8 py-4 border-2 border-green-300 text-green-100 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-green-400 hover:text-green-900 hover:scale-105 hover:border-green-400"
+            >
+              Read My Blog
+            </Link>
             
             <button
               onClick={() => scrollToSection('contact')}
               className="px-8 py-4 border-2 border-green-300 text-green-100 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-green-400 hover:text-green-900 hover:scale-105 hover:border-green-400"
             >
-              🌿 Let&apos;s Collaborate
+              Let&apos;s Collaborate
             </button>
           </div>
         </div>
@@ -90,26 +86,3 @@ export default function Hero() {
     </section>
   )
 }
-<div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-  <button
-    onClick={() => scrollToSection('results')}
-    className="group relative px-8 py-4 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-full font-semibold text-lg transition-all duration-300 hover:from-green-400 hover:to-emerald-500 hover:scale-105 hover:shadow-2xl shadow-green-500/25"
-  >
-    🚀 Explore My Impact
-    <span className="absolute inset-0 rounded-full bg-gradient-to-r from-green-300 to-emerald-400 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></span>
-  </button>
-  
-  <Link 
-    href="/blog"
-    className="px-8 py-4 border-2 border-green-300 text-green-100 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-green-400 hover:text-green-900 hover:scale-105 hover:border-green-400"
-  >
-    📚 Read My Blog
-  </Link>
-  
-  <button
-    onClick={() => scrollToSection('contact')}
-    className="px-8 py-4 border-2 border-green-300 text-green-100 rounded-full font-semibold text-lg transition-all duration-300 hover:bg-green-400 hover:text-green-900 hover:scale-105 hover:border-green-400"
-  >
-    🌿 Let&apos;s Collaborate
-  </button>
-</div>

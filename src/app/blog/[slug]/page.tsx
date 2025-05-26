@@ -32,7 +32,7 @@ const components = {
   },
   marks: {
     link: ({ children, value }: any) => (
-      
+      <a
         href={value.href}
         target="_blank"
         rel="noopener noreferrer"
@@ -44,8 +44,9 @@ const components = {
   },
 }
 
-export default async function BlogPost({ params }: { params: { slug: string } }) {
-  const post = await getPost(params.slug)
+export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const post = await getPost(slug)
   
   if (!post) {
     notFound()
@@ -107,7 +108,7 @@ export default async function BlogPost({ params }: { params: { slug: string } })
               Ready to drive growth for your business?
             </h3>
             <p className="text-gray-300 mb-6">
-              Let's discuss how my marketing expertise can accelerate your success.
+              Let&apos;s discuss how my marketing expertise can accelerate your success.
             </p>
             <Link 
               href="/#contact"
