@@ -26,14 +26,13 @@ export interface BlogPost {
 // Helper function to get all posts
 export async function getAllPosts(): Promise<BlogPost[]> {
   return client.fetch(`
-    *[_type == "post" && defined(slug.current)] | order(publishedAt desc) {
+    *[_type == "post" && defined(publishedAt)] | order(publishedAt desc) {
       _id,
       title,
       slug,
       excerpt,
       mainImage,
       publishedAt,
-      "author": author->name,
       body
     }
   `)
@@ -42,43 +41,14 @@ export async function getAllPosts(): Promise<BlogPost[]> {
 // Helper function to get a single post
 export async function getPost(slug: string): Promise<BlogPost | null> {
   return client.fetch(`
-    *[_type == "post" && slug.current == $slug][0] {
+    *[_type == "post" && slug.current == $slug && defined(publishedAt)][0] {
       _id,
       title,
       slug,
       excerpt,
       mainImage,
       publishedAt,
-      "author": author->name,
       body
     }
   `, { slug })
-}// Helper function to get all posts
-export async function getAllPosts(): Promise<BlogPost[]> {
-    return client.fetch(`
-      *[_type == "post" && defined(publishedAt)] | order(publishedAt desc) {
-        _id,
-        title,
-        slug,
-        excerpt,
-        mainImage,
-        publishedAt,
-        body
-      }
-    `)
-  }
-  
-  // Helper function to get a single post
-  export async function getPost(slug: string): Promise<BlogPost | null> {
-    return client.fetch(`
-      *[_type == "post" && slug.current == $slug && defined(publishedAt)][0] {
-        _id,
-        title,
-        slug,
-        excerpt,
-        mainImage,
-        publishedAt,
-        body
-      }
-    `, { slug })
-  }
+}
