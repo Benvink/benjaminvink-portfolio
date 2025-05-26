@@ -1,17 +1,25 @@
-import { getPost, urlFor } from '@/lib/sanity'
+import { getPost, urlFor, BlogPost } from '@/lib/sanity'
 import { PortableText } from '@portabletext/react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 
+interface ComponentProps {
+  children?: React.ReactNode
+  value?: {
+    href?: string
+    alt?: string
+  }
+}
+
 // Custom components for rich text
 const components = {
   types: {
-    image: ({ value }: any) => (
+    image: ({ value }: ComponentProps) => (
       <div className="my-8">
         <Image
           src={urlFor(value).width(800).height(400).url()}
-          alt={value.alt || 'Blog image'}
+          alt={value?.alt || 'Blog image'}
           width={800}
           height={400}
           className="rounded-xl w-full"
@@ -20,20 +28,20 @@ const components = {
     ),
   },
   block: {
-    h2: ({ children }: any) => (
+    h2: ({ children }: ComponentProps) => (
       <h2 className="text-3xl font-bold text-white mt-8 mb-4">{children}</h2>
     ),
-    h3: ({ children }: any) => (
+    h3: ({ children }: ComponentProps) => (
       <h3 className="text-2xl font-bold text-white mt-6 mb-3">{children}</h3>
     ),
-    normal: ({ children }: any) => (
+    normal: ({ children }: ComponentProps) => (
       <p className="text-gray-300 leading-relaxed mb-4">{children}</p>
     ),
   },
   marks: {
-    link: ({ children, value }: any) => (
+    link: ({ children, value }: ComponentProps) => (
       <a
-        href={value.href}
+        href={value?.href}
         target="_blank"
         rel="noopener noreferrer"
         className="text-green-400 hover:text-green-300 underline"
@@ -55,7 +63,6 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-900 to-emerald-950">
       <div className="max-w-4xl mx-auto px-4 py-20">
-        {/* Back to blog link */}
         <div className="mb-8">
           <Link 
             href="/blog"
@@ -65,7 +72,6 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
           </Link>
         </div>
         
-        {/* Header */}
         <header className="mb-12">
           {post.mainImage && (
             <div className="mb-8 overflow-hidden rounded-2xl">
@@ -96,12 +102,10 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
           </div>
         </header>
         
-        {/* Content */}
         <article className="prose prose-lg prose-invert max-w-none">
           <PortableText value={post.body} components={components} />
         </article>
         
-        {/* Footer */}
         <footer className="mt-16 pt-8 border-t border-white/20">
           <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-8 text-center">
             <h3 className="text-2xl font-bold text-white mb-4">

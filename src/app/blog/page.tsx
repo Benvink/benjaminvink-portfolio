@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { getAllPosts, urlFor } from '@/lib/sanity'
+import { getAllPosts, urlFor, BlogPost } from '@/lib/sanity'
 import Image from 'next/image'
 
 export default async function BlogPage() {
@@ -21,7 +21,7 @@ export default async function BlogPage() {
         </div>
         
         <div className="grid gap-8">
-          {posts.map((post: any) => (
+          {posts.map((post: BlogPost) => (
             <Link key={post._id} href={`/blog/${post.slug.current}`}>
               <article className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20 hover:border-white/40 transition-all duration-300 hover:scale-[1.02] group">
                 {post.mainImage && (

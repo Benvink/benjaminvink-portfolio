@@ -9,10 +9,22 @@ export const client = createClient({
 })
 
 const builder = imageUrlBuilder(client)
-export const urlFor = (source: any) => builder.image(source)
+export const urlFor = (source: unknown) => builder.image(source)
+
+// Types for blog posts
+export interface BlogPost {
+  _id: string
+  title: string
+  slug: { current: string }
+  excerpt?: string
+  mainImage?: unknown
+  publishedAt: string
+  author?: string
+  body: unknown[]
+}
 
 // Helper function to get all posts
-export async function getAllPosts() {
+export async function getAllPosts(): Promise<BlogPost[]> {
   return client.fetch(`
     *[_type == "post" && defined(slug.current)] | order(publishedAt desc) {
       _id,
@@ -28,7 +40,7 @@ export async function getAllPosts() {
 }
 
 // Helper function to get a single post
-export async function getPost(slug: string) {
+export async function getPost(slug: string): Promise<BlogPost | null> {
   return client.fetch(`
     *[_type == "post" && slug.current == $slug][0] {
       _id,
