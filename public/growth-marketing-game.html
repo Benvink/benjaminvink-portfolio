@@ -1,0 +1,1400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Growth Marketing Reality</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0F172A, #1E293B, #059669);
+            color: white;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .game-container {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 350px 1fr 400px;
+            gap: 20px;
+            height: calc(100vh - 40px);
+        }
+
+        .panel {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            overflow-y: auto;
+        }
+
+        .main-panel {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #10B981;
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+        }
+
+        .company-info {
+            text-align: center;
+            background: rgba(16, 185, 129, 0.2);
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+        }
+
+        .metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border-left: 3px solid #10B981;
+            font-size: 0.9rem;
+        }
+
+        .metric-value {
+            font-weight: bold;
+            color: #10B981;
+        }
+
+        .metric.negative .metric-value {
+            color: #EF4444;
+        }
+
+        .metric.warning .metric-value {
+            color: #F59E0B;
+        }
+
+        .strategy-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 15px 0;
+        }
+
+        .strategy-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            position: relative;
+            font-size: 0.9rem;
+        }
+
+        .strategy-card:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+            border-color: #10B981;
+        }
+
+        .strategy-card.selected {
+            border-color: #10B981;
+            background: rgba(16, 185, 129, 0.2);
+        }
+
+        .strategy-card.expensive {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .strategy-title {
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 6px;
+            color: #10B981;
+        }
+
+        .strategy-cost {
+            color: #F59E0B;
+            font-weight: bold;
+            margin-bottom: 6px;
+            font-size: 0.85rem;
+        }
+
+        .strategy-effect {
+            font-size: 0.8rem;
+            color: #D1D5DB;
+            line-height: 1.3;
+        }
+
+        .difficulty-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: #EF4444;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        .difficulty-badge.easy { background: #10B981; }
+        .difficulty-badge.medium { background: #F59E0B; }
+        .difficulty-badge.hard { background: #EF4444; }
+
+        .month-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 12px 20px;
+            border: none;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #10B981, #059669);
+            color: white;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.6);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .market-conditions {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+        }
+
+        .market-indicator {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            font-size: 0.85rem;
+        }
+
+        .competition-level {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .competition-low { background: #10B981; }
+        .competition-medium { background: #F59E0B; }
+        .competition-high { background: #EF4444; }
+
+        .insights-list {
+            list-style: none;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .insights-list li {
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .cohort-analysis {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 12px;
+            border-radius: 8px;
+            margin: 12px 0;
+            font-size: 0.85rem;
+        }
+
+        .cohort-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 4px;
+        }
+
+        .event-popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(15px);
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            border: 2px solid #10B981;
+            z-index: 1000;
+            max-width: 500px;
+        }
+
+        .event-popup.hidden {
+            display: none;
+        }
+
+        .channel-performance {
+            margin: 15px 0;
+        }
+
+        .channel-bar {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 0.8rem;
+        }
+
+        .channel-name {
+            width: 80px;
+            font-size: 0.75rem;
+        }
+
+        .channel-fill {
+            flex: 1;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            margin: 0 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .channel-progress {
+            height: 100%;
+            background: linear-gradient(90deg, #10B981, #059669);
+            border-radius: 6px;
+            transition: width 0.5s ease;
+        }
+
+        .economic-indicator {
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            margin-bottom: 10px;
+            font-size: 0.85rem;
+        }
+
+        .runway-warning {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid #EF4444;
+            color: #FCA5A5;
+        }
+
+        .runway-good {
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid #10B981;
+            color: #6EE7B7;
+        }
+
+        @media (max-width: 1400px) {
+            .game-container {
+                grid-template-columns: 1fr;
+                gap: 15px;
+                height: auto;
+            }
+        }
+
+        .attribution-model {
+            font-size: 0.8rem;
+            margin: 10px 0;
+        }
+
+        .attribution-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .seasonal-effect {
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid #3B82F6;
+            padding: 8px;
+            border-radius: 6px;
+            margin: 8px 0;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <!-- Left Panel: Company Stats -->
+        <div class="panel">
+            <h3 style="margin-bottom: 15px; color: #10B981; font-size: 1.1rem;">📊 SaaS Dashboard</h3>
+            
+            <div class="metric">
+                <span>MRR</span>
+                <span class="metric-value">£<span id="mrr">0</span></span>
+            </div>
+            
+            <div class="metric">
+                <span>ARR</span>
+                <span class="metric-value">£<span id="arr">0</span></span>
+            </div>
+            
+            <div class="metric">
+                <span>Paying Customers</span>
+                <span class="metric-value"><span id="customers">0</span></span>
+            </div>
+
+            <div class="metric">
+                <span>Trial Users</span>
+                <span class="metric-value"><span id="trials">0</span></span>
+            </div>
+            
+            <div class="metric" id="budgetMetric">
+                <span>Marketing Budget</span>
+                <span class="metric-value">£<span id="budget">15000</span></span>
+            </div>
+
+            <div class="metric">
+                <span>Burn Rate</span>
+                <span class="metric-value">£<span id="burnRate">8500</span>/mo</span>
+            </div>
+
+            <div class="metric" id="runwayMetric">
+                <span>Runway</span>
+                <span class="metric-value"><span id="runway">18</span> months</span>
+            </div>
+
+            <div class="market-conditions">
+                <h4 style="color: #10B981; margin-bottom: 10px; font-size: 0.95rem;">Market Conditions</h4>
+                <div class="market-indicator">
+                    <span>Competition:</span>
+                    <span class="competition-level competition-low" id="competition">Low</span>
+                </div>
+                <div class="market-indicator">
+                    <span>Ad Costs:</span>
+                    <span id="adCostTrend">📈 Rising (+15%)</span>
+                </div>
+                <div class="market-indicator">
+                    <span>Market Demand:</span>
+                    <span id="marketDemand">📊 Stable</span>
+                </div>
+                <div class="market-indicator">
+                    <span>Seasonality:</span>
+                    <span id="seasonality">🌱 Q1 Slow</span>
+                </div>
+            </div>
+
+            <h4 style="color: #10B981; margin: 15px 0 8px 0; font-size: 0.9rem;">Key Metrics</h4>
+            <div class="metric">
+                <span>CAC</span>
+                <span class="metric-value" id="cacDisplay">£<span id="cac">450</span></span>
+            </div>
+            <div class="metric">
+                <span>LTV</span>
+                <span class="metric-value">£<span id="ltv">2400</span></span>
+            </div>
+            <div class="metric" id="ltvCacMetric">
+                <span>LTV:CAC</span>
+                <span class="metric-value" id="ltvCacRatio">5.3</span>
+            </div>
+            <div class="metric">
+                <span>Payback Period</span>
+                <span class="metric-value"><span id="payback">12</span> months</span>
+            </div>
+            <div class="metric">
+                <span>Monthly Churn</span>
+                <span class="metric-value" id="churnDisplay"><span id="churn">8</span>%</span>
+            </div>
+
+            <div class="cohort-analysis">
+                <h5 style="color: #10B981; margin-bottom: 8px; font-size: 0.85rem;">Cohort Retention</h5>
+                <div class="cohort-row">
+                    <span>Month 1:</span>
+                    <span id="retention1">85%</span>
+                </div>
+                <div class="cohort-row">
+                    <span>Month 6:</span>
+                    <span id="retention6">65%</span>
+                </div>
+                <div class="cohort-row">
+                    <span>Month 12:</span>
+                    <span id="retention12">45%</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Panel: Game Actions -->
+        <div class="panel main-panel">
+            <h1>Growth Marketing Reality</h1>
+            
+            <div class="company-info">
+                <h2>🚀 FlowSync SaaS</h2>
+                <p>Project management for remote teams • £29/month • B2B SaaS</p>
+                <p style="margin-top: 8px; font-size: 0.85rem;">
+                    <strong>Month <span id="month">1</span></strong> | Team: 12 people | Series A: £2.1M raised
+                </p>
+                <div style="margin-top: 8px; font-size: 0.8rem;" id="cashRunwayIndicator" class="runway-good">
+                    💰 Strong financial position
+                </div>
+            </div>
+
+            <div class="seasonal-effect" id="seasonalEffect">
+                🌱 Q1 Effect: B2B buying slowdown (-20% conversion rates)
+            </div>
+
+            <h3 style="color: #10B981; margin-bottom: 12px; font-size: 1rem;">Choose Your Strategy (Pick 1-2 max per month):</h3>
+            
+            <div class="strategy-grid">
+                <div class="strategy-card" data-strategy="seo" data-cost="2500">
+                    <div class="difficulty-badge easy">Long-term</div>
+                    <div class="strategy-title">🔍 SEO & Content</div>
+                    <div class="strategy-cost">£2,500/month</div>
+                    <div class="strategy-effect">
+                        • 3-6 months to see results<br>
+                        • High-intent organic traffic<br>
+                        • Builds domain authority<br>
+                        • 65% trial→paid conversion
+                    </div>
+                </div>
+
+                <div class="strategy-card" data-strategy="ppc" data-cost="5000">
+                    <div class="difficulty-badge medium">Immediate</div>
+                    <div class="strategy-title">💰 Google Ads (PPC)</div>
+                    <div class="strategy-cost">£5,000/month</div>
+                    <div class="strategy-effect">
+                        • Immediate traffic & trials<br>
+                        • High CAC but fast scale<br>
+                        • 45% trial→paid conversion<br>
+                        • Competitive keyword bidding
+                    </div>
+                </div>
+
+                <div class="strategy-card" data-strategy="linkedin" data-cost="4000">
+                    <div class="difficulty-badge medium">B2B Focus</div>
+                    <div class="strategy-title">💼 LinkedIn Ads</div>
+                    <div class="strategy-cost">£4,000/month</div>
+                    <div class="strategy-effect">
+                        • High-quality B2B leads<br>
+                        • Decision-maker targeting<br>
+                        • 55% trial→paid conversion<br>
+                        • Higher LTV customers
+                    </div>
+                </div>
+
+                <div class="strategy-card" data-strategy="product" data-cost="3500">
+                    <div class="difficulty-badge easy">Foundation</div>
+                    <div class="strategy-title">🔧 Product-Led Growth</div>
+                    <div class="strategy-cost">£3,500/month</div>
+                    <div class="strategy-effect">
+                        • Improve trial→paid conversion<br>
+                        • Reduce time-to-value<br>
+                        • Lower churn rates<br>
+                        • Viral features & referrals
+                    </div>
+                </div>
+
+                <div class="strategy-card" data-strategy="content" data-cost="3000">
+                    <div class="difficulty-badge easy">Education</div>
+                    <div class="strategy-title">📚 Content Marketing</div>
+                    <div class="strategy-cost">£3,000/month</div>
+                    <div class="strategy-effect">
+                        • Educational content strategy<br>
+                        • Thought leadership building<br>
+                        • Supports sales conversations<br>
+                        • Long-term brand building
+                    </div>
+                </div>
+
+                <div class="strategy-card" data-strategy="partnerships" data-cost="2000">
+                    <div class="difficulty-badge hard">Network</div>
+                    <div class="strategy-title">🤝 Channel Partnerships</div>
+                    <div class="strategy-cost">£2,000/month</div>
+                    <div class="strategy-effect">
+                        • Integration partnerships<br>
+                        • Reseller channel development<br>
+                        • 3-6 months to establish<br>
+                        • Lower CAC, higher LTV
+                    </div>
+                </div>
+
+                <div class="strategy-card" data-strategy="events" data-cost="6000">
+                    <div class="difficulty-badge hard">Seasonal</div>
+                    <div class="strategy-title">🎪 Events & Conferences</div>
+                    <div class="strategy-cost">£6,000/month</div>
+                    <div class="strategy-effect">
+                        • High-value enterprise leads<br>
+                        • Brand awareness in industry<br>
+                        • Pipeline acceleration<br>
+                        • Seasonal effectiveness varies
+                    </div>
+                </div>
+
+                <div class="strategy-card" data-strategy="retention" data-cost="2500">
+                    <div class="difficulty-badge easy">Retention</div>
+                    <div class="strategy-title">💎 Customer Success</div>
+                    <div class="strategy-cost">£2,500/month</div>
+                    <div class="strategy-effect">
+                        • Reduce churn by 25-40%<br>
+                        • Increase expansion revenue<br>
+                        • Higher NPS scores<br>
+                        • Better case studies
+                    </div>
+                </div>
+            </div>
+
+            <div class="month-controls">
+                <button class="btn btn-secondary" onclick="resetGame()">🔄 Reset</button>
+                <button class="btn btn-primary" onclick="nextMonth()" id="nextBtn">📈 Execute & Next Month</button>
+            </div>
+        </div>
+
+        <!-- Right Panel: Analytics & Market Intelligence -->
+        <div class="panel">
+            <h3 style="margin-bottom: 15px; color: #10B981; font-size: 1rem;">📈 Growth Analytics</h3>
+            
+            <div class="channel-performance">
+                <h4 style="color: #10B981; margin-bottom: 10px; font-size: 0.9rem;">Channel Attribution</h4>
+                <div class="channel-bar">
+                    <span class="channel-name">Organic</span>
+                    <div class="channel-fill">
+                        <div class="channel-progress" id="organicProgress" style="width: 15%"></div>
+                    </div>
+                    <span id="organicCount">12</span>
+                </div>
+                <div class="channel-bar">
+                    <span class="channel-name">Paid</span>
+                    <div class="channel-fill">
+                        <div class="channel-progress" id="paidProgress" style="width: 45%"></div>
+                    </div>
+                    <span id="paidCount">35</span>
+                </div>
+                <div class="channel-bar">
+                    <span class="channel-name">Referral</span>
+                    <div class="channel-fill">
+                        <div class="channel-progress" id="referralProgress" style="width: 25%"></div>
+                    </div>
+                    <span id="referralCount">18</span>
+                </div>
+                <div class="channel-bar">
+                    <span class="channel-name">Direct</span>
+                    <div class="channel-fill">
+                        <div class="channel-progress" id="directProgress" style="width: 15%"></div>
+                    </div>
+                    <span id="directCount">8</span>
+                </div>
+            </div>
+
+            <div class="economic-indicator" id="economicIndicator">
+                📊 Market Outlook: Stable growth expected, SaaS funding remains strong
+            </div>
+
+            <h4 style="color: #10B981; margin: 15px 0 8px 0; font-size: 0.9rem;">📰 Market Intelligence</h4>
+            <ul class="insights-list" id="insights">
+                <li>🎯 Focus on trial→paid conversion optimization early</li>
+                <li>📊 B2B SaaS average CAC payback: 12-18 months</li>
+                <li>🔍 SEO takes 3-6 months but highest ROI long-term</li>
+                <li>💰 LinkedIn Ads: expensive but highest quality B2B leads</li>
+                <li>🔧 Product-led growth reduces CAC significantly</li>
+                <li>📈 Retention improvements have 3x impact vs acquisition</li>
+            </ul>
+
+            <h4 style="color: #10B981; margin: 15px 0 8px 0; font-size: 0.9rem;">📊 Competitive Intelligence</h4>
+            <div class="attribution-model" id="competitorIntel">
+                <div class="attribution-row">
+                    <span>Asana:</span>
+                    <span>£45M ARR, 2.1M trials/mo</span>
+                </div>
+                <div class="attribution-row">
+                    <span>Monday.com:</span>
+                    <span>£65M ARR, heavy paid ads</span>
+                </div>
+                <div class="attribution-row">
+                    <span>ClickUp:</span>
+                    <span>Product-led, 4M+ users</span>
+                </div>
+                <div class="attribution-row">
+                    <span>Your Position:</span>
+                    <span style="color: #10B981;">Early stage, agile</span>
+                </div>
+            </div>
+
+            <h4 style="color: #10B981; margin: 15px 0 8px 0; font-size: 0.9rem;">🎲 Recent Events</h4>
+            <div id="eventLog" style="font-size: 0.8rem; line-height: 1.4;">
+                <p style="color: #10B981; margin-bottom: 8px;">📅 Month 1: Game started. Choose your growth strategy carefully!</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Event Popup -->
+    <div class="event-popup hidden" id="eventPopup">
+        <h3 id="eventTitle">Market Event!</h3>
+        <p id="eventDescription" style="margin: 15px 0;"></p>
+        <div id="eventImpact" style="font-size: 0.9rem; margin: 10px 0; color: #10B981;"></div>
+        <button class="btn btn-primary" onclick="closeEvent()">Continue</button>
+    </div>
+
+    <script>
+        // Realistic Game State
+        let gameState = {
+            month: 1,
+            mrr: 0,
+            arr: 0,
+            payingCustomers: 0,
+            trialUsers: 0,
+            budget: 15000,
+            totalRaised: 2100000,
+            burnRate: 8500,
+            runway: 18,
+            
+            // Realistic SaaS metrics
+            cac: 450,
+            ltv: 2400,
+            churnRate: 8, // Monthly churn %
+            conversionRate: 50, // Trial to paid %
+            
+            // Market conditions
+            competitionLevel: 'low',
+            adCostInflation: 1.0,
+            seasonalityMultiplier: 0.8, // Q1 effect
+            marketDemand: 1.0,
+            
+            // Attribution tracking
+            organicCustomers: 12,
+            paidCustomers: 35,
+            referralCustomers: 18,
+            directCustomers: 8,
+            
+            // Strategy investments (ongoing effects)
+            seoInvestment: 0,
+            contentInvestment: 0,
+            productInvestment: 0,
+            partnershipInvestment: 0,
+            retentionInvestment: 0,
+            
+            // Cohort data
+            retention1: 85,
+            retention6: 65,
+            retention12: 45,
+            
+            selectedStrategies: [],
+            monthlyResults: []
+        };
+
+        // Realistic strategy definitions with market dynamics
+        const strategies = {
+            seo: {
+                name: "SEO & Content",
+                cost: 2500,
+                timeToImpact: 3, // months
+                execute: () => {
+                    if (gameState.seoInvestment === 0) {
+                        addInsight("🔍 SEO: Starting keyword research and content calendar. Results in 3-6 months.");
+                        gameState.seoInvestment = 1;
+                        return { trials: 5, conversionRate: 0 };
+                    }
+                    
+                    gameState.seoInvestment++;
+                    let impact = Math.min(gameState.seoInvestment * 15, 120);
+                    let trials = Math.floor(impact * gameState.seasonalityMultiplier);
+                    
+                    if (gameState.seoInvestment >= 3) {
+                        gameState.cac -= 25; // Long-term CAC reduction
+                        addInsight(`🔍 SEO: Organic growth accelerating. ${trials} high-intent trials this month.`);
+                    } else {
+                        addInsight(`🔍 SEO: Building momentum. Early organic traffic: ${trials} trials.`);
+                    }
+                    
+                    gameState.organicCustomers += Math.floor(trials * 0.65);
+                    return { trials, conversionRate: 65 };
+                }
+            },
+            
+            ppc: {
+                name: "Google Ads (PPC)",
+                cost: 5000,
+                timeToImpact: 0,
+                execute: () => {
+                    let costPerTrial = 65 * gameState.adCostInflation;
+                    let trials = Math.floor(gameState.budget * 0.7 / costPerTrial);
+                    trials = Math.floor(trials * gameState.seasonalityMultiplier);
+                    
+                    gameState.cac += 30; // PPC inflates overall CAC
+                    gameState.adCostInflation += 0.05; // Costs rise over time
+                    
+                    addInsight(`💰 PPC: Immediate traffic. ${trials} trials, but rising ad costs (${(gameState.adCostInflation * 100 - 100).toFixed(0)}% inflation).`);
+                    
+                    gameState.paidCustomers += Math.floor(trials * 0.45);
+                    return { trials, conversionRate: 45 };
+                }
+            },
+            
+            linkedin: {
+                name: "LinkedIn Ads",
+                cost: 4000,
+                timeToImpact: 0,
+                execute: () => {
+                    let trials = Math.floor(40 * gameState.seasonalityMultiplier);
+                    
+                    // LinkedIn brings higher LTV customers
+                    gameState.ltv += 150;
+                    gameState.paidCustomers += Math.floor(trials * 0.55);
+                    
+                    addInsight(`💼 LinkedIn: ${trials} high-quality B2B trials. Higher LTV customers (+£150).`);
+                    return { trials, conversionRate: 55 };
+                }
+            },
+            
+            product: {
+                name: "Product-Led Growth",
+                cost: 3500,
+                timeToImpact: 1,
+                execute: () => {
+                    gameState.productInvestment++;
+                    
+                    // Improves conversion rates and reduces churn
+                    gameState.conversionRate += 5;
+                    gameState.churnRate = Math.max(3, gameState.churnRate - 1.5);
+                    gameState.cac -= 40; // Better conversion = lower CAC
+                    
+                    // Viral features increase referrals
+                    let viralGrowth = Math.floor(gameState.payingCustomers * 0.15);
+                    gameState.referralCustomers += viralGrowth;
+                    
+                    addInsight(`🔧 Product: Improved onboarding (+5% conversion), reduced churn (-1.5%), ${viralGrowth} viral signups.`);
+                    return { trials: viralGrowth * 2, conversionRate: gameState.conversionRate };
+                }
+            },
+            
+            content: {
+                name: "Content Marketing",
+                cost: 3000,
+                timeToImpact: 2,
+                execute: () => {
+                    gameState.contentInvestment++;
+                    
+                    let trials = Math.floor(25 + (gameState.contentInvestment * 8));
+                    trials = Math.floor(trials * gameState.seasonalityMultiplier);
+                    
+                    // Content supports sales (better conversion)
+                    if (gameState.contentInvestment >= 2) {
+                        gameState.conversionRate += 2;
+                        addInsight(`📚 Content: Educational content helping sales conversations. ${trials} educated trials (+2% conversion).`);
+                    } else {
+                        addInsight(`📚 Content: Building thought leadership. Early results: ${trials} trials.`);
+                    }
+                    
+                    gameState.organicCustomers += Math.floor(trials * 0.6);
+                    return { trials, conversionRate: gameState.conversionRate };
+                }
+            },
+            
+            partnerships: {
+                name: "Channel Partnerships",
+                cost: 2000,
+                timeToImpact: 4,
+                execute: () => {
+                    gameState.partnershipInvestment++;
+                    
+                    if (gameState.partnershipInvestment < 3) {
+                        addInsight(`🤝 Partnerships: Building relationships with integration partners. No immediate results.`);
+                        return { trials: 0, conversionRate: 50 };
+                    }
+                    
+                    // After 3 months, partnerships start paying off
+                    let partnerTrials = Math.floor(35 + (gameState.partnershipInvestment * 12));
+                    gameState.cac -= 60; // Lower CAC from partnerships
+                    gameState.ltv += 200; // Higher LTV from partner referrals
+                    
+                    addInsight(`🤝 Partnerships: Channel flowing! ${partnerTrials} partner referrals, lower CAC (-£60).`);
+                    return { trials: partnerTrials, conversionRate: 70 };
+                }
+            },
+            
+            events: {
+                name: "Events & Conferences",
+                cost: 6000,
+                timeToImpact: 0,
+                execute: () => {
+                    // Seasonal effectiveness
+                    let seasonalMultiplier = gameState.month % 12 === 3 || gameState.month % 12 === 9 ? 1.5 : 0.7;
+                    let trials = Math.floor(15 * seasonalMultiplier);
+                    
+                    // High-value enterprise leads
+                    gameState.ltv += 400;
+                    gameState.directCustomers += Math.floor(trials * 0.8);
+                    
+                    if (seasonalMultiplier > 1) {
+                        addInsight(`🎪 Events: Conference season! ${trials} high-value enterprise trials (+£400 LTV).`);
+                    } else {
+                        addInsight(`🎪 Events: Off-season. Only ${trials} trials. Wait for conference season.`);
+                    }
+                    
+                    return { trials, conversionRate: 80 };
+                }
+            },
+            
+            retention: {
+                name: "Customer Success",
+                cost: 2500,
+                timeToImpact: 0,
+                execute: () => {
+                    gameState.retentionInvestment++;
+                    
+                    // Immediate churn reduction
+                    gameState.churnRate = Math.max(2, gameState.churnRate - 2);
+                    gameState.ltv += 300;
+                    
+                    // Expansion revenue from existing customers
+                    let expansionRevenue = Math.floor(gameState.payingCustomers * 0.2 * 29); // 20% of customers upgrade
+                    gameState.mrr += expansionRevenue;
+                    
+                    addInsight(`💎 Retention: Churn reduced to ${gameState.churnRate.toFixed(1)}%, £${expansionRevenue} expansion MRR this month.`);
+                    return { trials: 0, conversionRate: gameState.conversionRate };
+                }
+            }
+        };
+
+        // Realistic market events
+        const marketEvents = [
+            {
+                title: "🏦 Economic Downturn",
+                description: "Market recession affecting B2B budgets. Enterprise deals taking longer to close.",
+                probability: 0.15,
+                effect: () => {
+                    gameState.seasonalityMultiplier *= 0.7;
+                    gameState.ltv -= 300;
+                    gameState.churnRate += 2;
+                    return "📉 Budget freezes affecting conversion rates (-30%) and increasing churn";
+                }
+            },
+            {
+                title: "💰 Competitor Raises $50M",
+                description: "Major competitor secured Series B funding and is flooding the market with ads.",
+                probability: 0.1,
+                effect: () => {
+                    gameState.adCostInflation += 0.25;
+                    gameState.cac += 100;
+                    gameState.competitionLevel = 'high';
+                    return "📈 Ad costs spiking (+25%), CAC increased significantly";
+                }
+            },
+            {
+                title: "🎯 Apple iOS Privacy Update",
+                description: "New iOS privacy features affecting ad targeting and attribution.",
+                probability: 0.08,
+                effect: () => {
+                    gameState.cac += 80;
+                    gameState.adCostInflation += 0.2;
+                    return "🔒 Attribution broken, ad performance declining significantly";
+                }
+            },
+            {
+                title: "🚀 Product Hunt Launch Success",
+                description: "Your product featured #1 on Product Hunt today!",
+                probability: 0.12,
+                effect: () => {
+                    gameState.trialUsers += 450;
+                    gameState.organicCustomers += 180;
+                    gameState.cac -= 50;
+                    return "🏆 Viral launch! +450 trials, massive brand awareness boost";
+                }
+            },
+            {
+                title: "📰 TechCrunch Feature",
+                description: "Major tech publication featured your company in a growth story.",
+                probability: 0.05,
+                effect: () => {
+                    gameState.trialUsers += 300;
+                    gameState.organicCustomers += 120;
+                    gameState.ltv += 200;
+                    return "📺 Press coverage driving enterprise interest and trial growth";
+                }
+            },
+            {
+                title: "🔥 Security Breach at Competitor",
+                description: "Major competitor suffered data breach, customers looking for alternatives.",
+                probability: 0.06,
+                effect: () => {
+                    gameState.trialUsers += 200;
+                    gameState.conversionRate += 10;
+                    gameState.ltv += 150;
+                    return "🛡️ Trust advantage! Higher conversion rates as customers switch";
+                }
+            },
+            {
+                title: "🏢 Enterprise Contract Won",
+                description: "Landed your first major enterprise customer (500+ seats)!",
+                probability: 0.08,
+                effect: () => {
+                    gameState.mrr += 14500;
+                    gameState.payingCustomers += 1;
+                    gameState.ltv += 800;
+                    return "🎉 Enterprise breakthrough! +£14.5K MRR, case study opportunity";
+                }
+            },
+            {
+                title: "👥 Key Team Member Leaves",
+                description: "Your head of marketing accepted an offer at a unicorn startup.",
+                probability: 0.1,
+                effect: () => {
+                    gameState.conversionRate -= 5;
+                    gameState.cac += 60;
+                    return "😔 Knowledge loss impacting campaign performance (-5% conversion)";
+                }
+            }
+        ];
+
+        function updateDisplay() {
+            // Calculate core metrics
+            gameState.arr = gameState.mrr * 12;
+            gameState.payingCustomers = gameState.organicCustomers + gameState.paidCustomers + gameState.referralCustomers + gameState.directCustomers;
+            
+            // Realistic CAC calculation
+            let totalAcquisitionCost = (gameState.selectedStrategies.reduce((sum, s) => sum + strategies[s].cost, 0));
+            if (gameState.payingCustomers > 0) {
+                gameState.cac = Math.round(totalAcquisitionCost / Math.max(1, gameState.payingCustomers * 0.1));
+            }
+            
+            // LTV:CAC ratio
+            let ltvCacRatio = gameState.ltv / gameState.cac;
+            
+            // Payback period
+            let paybackPeriod = Math.round(gameState.cac / (29 * (100 - gameState.churnRate) / 100));
+            
+            // Runway calculation
+            gameState.runway = Math.floor(gameState.totalRaised / gameState.burnRate);
+            
+            // Update DOM
+            document.getElementById('mrr').textContent = gameState.mrr.toLocaleString();
+            document.getElementById('arr').textContent = gameState.arr.toLocaleString();
+            document.getElementById('customers').textContent = gameState.payingCustomers.toLocaleString();
+            document.getElementById('trials').textContent = gameState.trialUsers.toLocaleString();
+            document.getElementById('budget').textContent = gameState.budget.toLocaleString();
+            document.getElementById('burnRate').textContent = gameState.burnRate.toLocaleString();
+            document.getElementById('runway').textContent = gameState.runway;
+            document.getElementById('month').textContent = gameState.month;
+            
+            // Metrics
+            document.getElementById('cac').textContent = gameState.cac;
+            document.getElementById('ltv').textContent = gameState.ltv;
+            document.getElementById('ltvCacRatio').textContent = ltvCacRatio.toFixed(1);
+            document.getElementById('payback').textContent = paybackPeriod;
+            document.getElementById('churn').textContent = gameState.churnRate.toFixed(1);
+            
+            // Color-code metrics based on SaaS benchmarks
+            updateMetricColors(ltvCacRatio, paybackPeriod);
+            
+            // Market conditions
+            updateMarketConditions();
+            
+            // Channel attribution
+            updateChannelAttribution();
+            
+            // Cohort retention
+            updateCohortData();
+            
+            // Strategy affordability
+            updateStrategyAffordability();
+            
+            // Runway warning
+            updateRunwayWarning();
+            
+            // Check win/lose conditions
+            checkGameState();
+        }
+
+        function updateMetricColors(ltvCacRatio, paybackPeriod) {
+            // LTV:CAC ratio coloring (3+ is good, 5+ is great)
+            let ltvCacElement = document.getElementById('ltvCacMetric');
+            if (ltvCacRatio < 3) {
+                ltvCacElement.className = 'metric negative';
+            } else if (ltvCacRatio < 5) {
+                ltvCacElement.className = 'metric warning';
+            } else {
+                ltvCacElement.className = 'metric';
+            }
+            
+            // CAC coloring
+            let cacElement = document.getElementById('cacDisplay');
+            if (gameState.cac > 600) {
+                cacElement.className = 'metric-value negative';
+            } else if (gameState.cac > 400) {
+                cacElement.className = 'metric-value warning';
+            } else {
+                cacElement.className = 'metric-value';
+            }
+            
+            // Churn coloring
+            let churnElement = document.getElementById('churnDisplay');
+            if (gameState.churnRate > 10) {
+                churnElement.className = 'metric-value negative';
+            } else if (gameState.churnRate > 7) {
+                churnElement.className = 'metric-value warning';
+            } else {
+                churnElement.className = 'metric-value';
+            }
+        }
+
+        function updateMarketConditions() {
+            // Competition level
+            let competitionElement = document.getElementById('competition');
+            competitionElement.textContent = gameState.competitionLevel;
+            competitionElement.className = `competition-level competition-${gameState.competitionLevel}`;
+            
+            // Ad cost trend
+            let adCostTrend = gameState.adCostInflation > 1.2 ? "📈 Rising (+25%)" : gameState.adCostInflation > 1.1 ? "📈 Rising (+15%)" : "📊 Stable";
+            document.getElementById('adCostTrend').textContent = adCostTrend;
+            
+            // Seasonality
+            let season = gameState.month % 12;
+            let seasonalText = "📊 Normal";
+            if (season <= 2) seasonalText = "🌱 Q1 Slow";
+            else if (season >= 3 && season <= 5) seasonalText = "🌸 Q2 Growth";
+            else if (season >= 6 && season <= 8) seasonalText = "☀️ Q3 Strong";
+            else if (season >= 9 && season <= 11) seasonalText = "🍂 Q4 Budget Rush";
+            
+            document.getElementById('seasonality').textContent = seasonalText;
+        }
+
+        function updateChannelAttribution() {
+            let total = gameState.organicCustomers + gameState.paidCustomers + gameState.referralCustomers + gameState.directCustomers;
+            
+            if (total > 0) {
+                document.getElementById('organicProgress').style.width = (gameState.organicCustomers / total * 100) + '%';
+                document.getElementById('paidProgress').style.width = (gameState.paidCustomers / total * 100) + '%';
+                document.getElementById('referralProgress').style.width = (gameState.referralCustomers / total * 100) + '%';
+                document.getElementById('directProgress').style.width = (gameState.directCustomers / total * 100) + '%';
+            }
+            
+            document.getElementById('organicCount').textContent = gameState.organicCustomers;
+            document.getElementById('paidCount').textContent = gameState.paidCustomers;
+            document.getElementById('referralCount').textContent = gameState.referralCustomers;
+            document.getElementById('directCount').textContent = gameState.directCustomers;
+        }
+
+        function updateCohortData() {
+            // Realistic cohort degradation based on churn
+            gameState.retention1 = Math.max(70, 100 - gameState.churnRate);
+            gameState.retention6 = Math.max(40, gameState.retention1 - (gameState.churnRate * 3));
+            gameState.retention12 = Math.max(25, gameState.retention6 - (gameState.churnRate * 2));
+            
+            document.getElementById('retention1').textContent = gameState.retention1.toFixed(0) + '%';
+            document.getElementById('retention6').textContent = gameState.retention6.toFixed(0) + '%';
+            document.getElementById('retention12').textContent = gameState.retention12.toFixed(0) + '%';
+        }
+
+        function updateStrategyAffordability() {
+            document.querySelectorAll('.strategy-card').forEach(card => {
+                let cost = parseInt(card.getAttribute('data-cost'));
+                card.classList.remove('expensive');
+                
+                if (gameState.budget < cost) {
+                    card.classList.add('expensive');
+                }
+            });
+        }
+
+        function updateRunwayWarning() {
+            let runwayElement = document.getElementById('runwayMetric');
+            let cashIndicator = document.getElementById('cashRunwayIndicator');
+            
+            if (gameState.runway < 6) {
+                runwayElement.className = 'metric negative';
+                cashIndicator.className = 'runway-warning';
+                cashIndicator.textContent = '⚠️ Critical runway - need funding/profitability soon';
+            } else if (gameState.runway < 12) {
+                runwayElement.className = 'metric warning';
+                cashIndicator.className = 'runway-warning';
+                cashIndicator.textContent = '⚠️ Plan next funding round or path to profitability';
+            } else {
+                runwayElement.className = 'metric';
+                cashIndicator.className = 'runway-good';
+                cashIndicator.textContent = '💰 Strong financial position';
+            }
+        }
+
+        function updateSeasonality() {
+            let season = gameState.month % 12;
+            let effect = "";
+            
+            if (season <= 2) {
+                gameState.seasonalityMultiplier = 0.8;
+                effect = "🌱 Q1 Effect: B2B buying slowdown (-20% conversion rates)";
+            } else if (season >= 3 && season <= 5) {
+                gameState.seasonalityMultiplier = 1.1;
+                effect = "🌸 Q2 Effect: Spring growth season (+10% performance)";
+            } else if (season >= 6 && season <= 8) {
+                gameState.seasonalityMultiplier = 1.0;
+                effect = "☀️ Q3 Effect: Summer steady state (normal performance)";
+            } else {
+                gameState.seasonalityMultiplier = 1.2;
+                effect = "🍂 Q4 Effect: Budget rush season (+20% enterprise deals)";
+            }
+            
+            document.getElementById('seasonalEffect').textContent = effect;
+        }
+
+        function selectStrategy(strategyName) {
+            let card = event.target.closest('.strategy-card');
+            let cost = parseInt(card.getAttribute('data-cost'));
+            
+            if (gameState.budget < cost) {
+                addInsight("❌ Insufficient budget for this strategy");
+                return;
+            }
+            
+            if (gameState.selectedStrategies.includes(strategyName)) {
+                // Deselect
+                gameState.selectedStrategies = gameState.selectedStrategies.filter(s => s !== strategyName);
+                card.classList.remove('selected');
+                addInsight(`❌ Deselected: ${strategies[strategyName].name}`);
+            } else if (gameState.selectedStrategies.length < 2) {
+                // Select (max 2 strategies per month)
+                gameState.selectedStrategies.push(strategyName);
+                card.classList.add('selected');
+                addInsight(`✅ Selected: ${strategies[strategyName].name}`);
+            } else {
+                addInsight("❌ Maximum 2 strategies per month (realistic constraint)");
+            }
+        }
+
+        function nextMonth() {
+            if (gameState.selectedStrategies.length === 0) {
+                addInsight("❌ Please select at least one strategy!");
+                return;
+            }
+
+            let monthResults = {
+                strategies: [...gameState.selectedStrategies],
+                trialsGenerated: 0,
+                customersAcquired: 0,
+                costSpent: 0
+            };
+
+            // Execute selected strategies
+            gameState.selectedStrategies.forEach(strategyName => {
+                let strategy = strategies[strategyName];
+                gameState.budget -= strategy.cost;
+                monthResults.costSpent += strategy.cost;
+                
+                let result = strategy.execute();
+                monthResults.trialsGenerated += result.trials;
+                
+                // Convert trials to customers based on conversion rate
+                let newCustomers = Math.floor(result.trials * (result.conversionRate / 100));
+                monthResults.customersAcquired += newCustomers;
+                gameState.trialUsers += result.trials;
+            });
+
+            // Apply monthly business dynamics
+            applyMonthlyDynamics();
+
+            // Random market events (15% chance)
+            if (Math.random() < 0.15) {
+                triggerMarketEvent();
+            }
+
+            // Update seasonality
+            updateSeasonality();
+
+            // Calculate monthly MRR from new customers
+            let newMRR = monthResults.customersAcquired * 29; // £29/month average
+            gameState.mrr += newMRR;
+
+            // Apply churn to existing MRR
+            let churnLoss = Math.floor(gameState.mrr * (gameState.churnRate / 100));
+            gameState.mrr = Math.max(0, gameState.mrr - churnLoss);
+
+            // Budget from revenue (realistic cash flow)
+            let cashFromRevenue = Math.floor(gameState.mrr * 0.6); // 60% of MRR back to marketing
+            gameState.budget += cashFromRevenue;
+
+            // Burn cash
+            gameState.totalRaised -= gameState.burnRate;
+
+            // Log month results
+            addInsight(`📊 Month ${gameState.month}: +${monthResults.customersAcquired} customers, £${newMRR} MRR, £${monthResults.costSpent} spent`);
+
+            // Move to next month
+            gameState.month++;
+            gameState.selectedStrategies = [];
+            gameState.monthlyResults.push(monthResults);
+
+            // Clear selections
+            document.querySelectorAll('.strategy-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+
+            updateDisplay();
+        }
+
+        function applyMonthlyDynamics() {
+            // Market competition increases over time
+            if (gameState.month % 6 === 0) {
+                gameState.competitionLevel = gameState.competitionLevel === 'low' ? 'medium' : 'high';
+                gameState.cac += 50;
+                addInsight("📈 Competition increasing - CAC rising across all channels");
+            }
+
+            // Ad costs natural inflation
+            gameState.adCostInflation += 0.02;
+
+            // Organic growth from compound effects
+            if (gameState.seoInvestment > 0) {
+                let organicGrowth = Math.floor(gameState.seoInvestment * 2);
+                gameState.organicCustomers += organicGrowth;
+                gameState.trialUsers += organicGrowth * 2;
+            }
+        }
+
+        function triggerMarketEvent() {
+            let availableEvents = marketEvents.filter(event => Math.random() < event.probability);
+            if (availableEvents.length === 0) return;
+
+            let event = availableEvents[Math.floor(Math.random() * availableEvents.length)];
+            let impact = event.effect();
+
+            document.getElementById('eventTitle').textContent = event.title;
+            document.getElementById('eventDescription').textContent = event.description;
+            document.getElementById('eventImpact').textContent = impact;
+            document.getElementById('eventPopup').classList.remove('hidden');
+
+            addInsight(`🎲 ${event.title}: ${impact}`);
+        }
+
+        function closeEvent() {
+            document.getElementById('eventPopup').classList.add('hidden');
+        }
+
+        function addInsight(message) {
+            let insights = document.getElementById('insights');
+            let li = document.createElement('li');
+            li.textContent = message;
+            li.style.color = '#10B981';
+            insights.insertBefore(li, insights.firstChild);
+            
+            // Keep only last 6 insights
+            while (insights.children.length > 6) {
+                insights.removeChild(insights.lastChild);
+            }
+
+            // Add to event log
+            let eventLog = document.getElementById('eventLog');
+            let p = document.createElement('p');
+            p.textContent = `📅 Month ${gameState.month}: ${message}`;
+            p.style.marginBottom = '8px';
+            p.style.paddingBottom = '8px';
+            p.style.borderBottom = '1px solid rgba(255,255,255,0.1)';
+            eventLog.insertBefore(p, eventLog.firstChild);
+            
+            // Keep only last 4 events
+            while (eventLog.children.length > 5) {
+                eventLog.removeChild(eventLog.lastChild);
+            }
+        }
+
+        function checkGameState() {
+            // Win condition: £500K ARR (realistic SaaS milestone)
+            if (gameState.arr >= 500000) {
+                showWinScreen("🎉 Series A Ready!", `You've built a £${(gameState.arr/1000).toFixed(0)}K ARR SaaS business in ${gameState.month} months!`);
+            }
+            
+            // Lose condition: Run out of money
+            if (gameState.totalRaised <= 0) {
+                showWinScreen("💸 Game Over", "You've run out of funding. Time to find investors or pivot!");
+            }
+        }
+
+        function showWinScreen(title, message) {
+            // Create simple win notification for now
+            alert(`${title}\n\n${message}\n\nFinal metrics:\nARR: £${gameState.arr.toLocaleString()}\nCAC: £${gameState.cac}\nLTV:CAC: ${(gameState.ltv/gameState.cac).toFixed(1)}\nMonths: ${gameState.month}`);
+        }
+
+        function resetGame() {
+            gameState = {
+                month: 1,
+                mrr: 0,
+                arr: 0,
+                payingCustomers: 0,
+                trialUsers: 0,
+                budget: 15000,
+                totalRaised: 2100000,
+                burnRate: 8500,
+                runway: 18,
+                cac: 450,
+                ltv: 2400,
+                churnRate: 8,
+                conversionRate: 50,
+                competitionLevel: 'low',
+                adCostInflation: 1.0,
+                seasonalityMultiplier: 0.8,
+                marketDemand: 1.0,
+                organicCustomers: 12,
+                paidCustomers: 35,
+                referralCustomers: 18,
+                directCustomers: 8,
+                seoInvestment: 0,
+                contentInvestment: 0,
+                productInvestment: 0,
+                partnershipInvestment: 0,
+                retentionInvestment: 0,
+                retention1: 85,
+                retention6: 65,
+                retention12: 45,
+                selectedStrategies: [],
+                monthlyResults: []
+            };
+
+            // Reset UI
+            document.querySelectorAll('.strategy-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+
+            document.getElementById('insights').innerHTML = `
+                <li>🎯 Focus on trial→paid conversion optimization early</li>
+                <li>📊 B2B SaaS average CAC payback: 12-18 months</li>
+                <li>🔍 SEO takes 3-6 months but highest ROI long-term</li>
+                <li>💰 LinkedIn Ads: expensive but highest quality B2B leads</li>
+                <li>🔧 Product-led growth reduces CAC significantly</li>
+                <li>📈 Retention improvements have 3x impact vs acquisition</li>
+            `;
+
+            document.getElementById('eventLog').innerHTML = `
+                <p style="color: #10B981; margin-bottom: 8px;">📅 Month 1: Game started. Choose your growth strategy carefully!</p>
+            `;
+
+            updateDisplay();
+        }
+
+        // Event listeners
+        document.querySelectorAll('.strategy-card').forEach(card => {
+            card.addEventListener('click', function() {
+                let strategy = this.getAttribute('data-strategy');
+                selectStrategy(strategy);
+            });
+        });
+
+        // Initialize game
+        updateDisplay();
+    </script>
+</body>
+</html>
