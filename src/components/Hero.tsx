@@ -1,3 +1,8 @@
+'use client'
+
+import { useState, useEffect } from 'react'
+import Link from 'next/link'
+
 <div className="flex flex-col sm:flex-row gap-4 justify-center items-center flex-wrap">
   <button
     onClick={() => scrollToSection('results')}
@@ -29,3 +34,11 @@
     Let&apos;s Collaborate
   </button>
 </div>
+function scrollToSection(sectionId: string): void {
+    const section = document.getElementById(sectionId);
+    if (section) {
+        section.scrollIntoView({ behavior: 'smooth' });
+    } else {
+        console.warn(`Section with id "${sectionId}" not found.`);
+    }
+}
