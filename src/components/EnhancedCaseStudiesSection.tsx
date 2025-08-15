@@ -42,9 +42,9 @@ const caseStudies: CaseStudy[] = [
     description: 'Documentary-led campaign targeting UK investors to fund South African solar projects, leveraging purchase price parity, founder heritage, and emotional storytelling to drive cross-border investment.',
     icon: '🌍',
     metrics: [
-      { number: '£2.8M', label: 'Investment Raised' },
+      { number: 'ZAR2.8M', label: 'Investment Raised' },
       { number: '450K+', label: 'Film Views' },
-      { number: '340%', label: 'Registration Growth' }
+      { number: '60%', label: 'Registration Growth' }
     ],
     tags: ['International Expansion', 'Video Content', 'Impact Investment', 'Cultural Positioning'],
     color: 'orange',
@@ -58,9 +58,9 @@ const caseStudies: CaseStudy[] = [
     description: 'Comprehensive repositioning of complex training programmes into clear, market-focused professional development pathways for the £10B UK waste management sector.',
     icon: '♻️',
     metrics: [
-      { number: '275%', label: 'Enquiry Increase' },
-      { number: '65%', label: 'Higher Conversion' },
-      { number: '£450K', label: 'Pipeline Value' }
+      { number: '23%', label: 'Enquiry Increase' },
+      { number: '18%', label: 'Higher Conversion' },
+      { number: '£20K', label: 'Pipeline Value' }
     ],
     tags: ['Brand Repositioning', 'Market Research', 'B2B Training', 'Messaging Strategy'],
     color: 'teal',
@@ -455,23 +455,20 @@ export default function EnhancedCaseStudiesSection() {
       
       <div className="grid grid-cols-2 md:grid-cols-6 gap-4">
         <div className="bg-green-50 p-5 rounded-xl text-center border-l-4 border-green-500">
-          <div className="text-2xl font-bold text-green-600 mb-2">275%</div>
+          <div className="text-2xl font-bold text-green-600 mb-2">22%</div>
           <div className="text-gray-600 text-sm">Increase in Enquiries</div>
         </div>
         <div className="bg-green-50 p-5 rounded-xl text-center border-l-4 border-green-500">
-          <div className="text-2xl font-bold text-green-600 mb-2">65%</div>
+          <div className="text-2xl font-bold text-green-600 mb-2">15%</div>
           <div className="text-gray-600 text-sm">Higher Conversion Rate</div>
         </div>
+        
         <div className="bg-green-50 p-5 rounded-xl text-center border-l-4 border-green-500">
-          <div className="text-2xl font-bold text-green-600 mb-2">85%</div>
-          <div className="text-gray-600 text-sm">Message Clarity Score</div>
-        </div>
-        <div className="bg-green-50 p-5 rounded-xl text-center border-l-4 border-green-500">
-          <div className="text-2xl font-bold text-green-600 mb-2">42%</div>
+          <div className="text-2xl font-bold text-green-600 mb-2">12%</div>
           <div className="text-gray-600 text-sm">Shorter Sales Cycle</div>
         </div>
-        <div className="bg-green-50 p-5 rounded-xl text-center border-l-4 border-green-500">
-          <div className="text-2xl font-bold text-green-600 mb-2">£450K</div>
+        <div className="bg-green-50 p-5 rounded-xl text-cen]ter border-l-4 border-green-500">
+          <div className="text-2xl font-bold text-green-600 mb-2">£52K</div>
           <div className="text-gray-600 text-sm">Revenue Pipeline</div>
         </div>
         <div className="bg-green-50 p-5 rounded-xl text-center border-l-4 border-green-500">
