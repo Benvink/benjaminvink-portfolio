@@ -1,6 +1,6 @@
 import Hero from '@/components/Hero'
 import MetricsSection from '@/components/MetricsSection'
-import CaseStudiesSection from '@/components/CaseStudiesSection'
+import EnhancedCaseStudiesSection from '@/components/EnhancedCaseStudiesSection'
 import TestimonialsSection from '@/components/TestimonialsSection'
 import ContactSection from '@/components/ContactSection'
 
@@ -9,7 +9,7 @@ export default function Home() {
     <main>
       <Hero />
       <MetricsSection />
-      <CaseStudiesSection />
+      <EnhancedCaseStudiesSection />
       <TestimonialsSection />
       <ContactSection />
     </main>
