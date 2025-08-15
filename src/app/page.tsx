@@ -1,6 +1,6 @@
 import Hero from '@/components/Hero'
 import MetricsSection from '@/components/MetricsSection'
-import EnhancedCaseStudiesSection from '@/components/EnhancedCaseStudiesSection.tsx'
+import EnhancedCaseStudiesSection from '@/components/EnhancedCaseStudiesSection'
 import TestimonialsSection from '@/components/TestimonialsSection'
 import ContactSection from '@/components/ContactSection'
 
